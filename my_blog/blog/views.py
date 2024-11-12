@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
 # Create your views here.
 def all_blog_posts(request):
@@ -8,3 +8,28 @@ def all_blog_posts(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'post_detail.html', {'post': post})
+
+def add_post(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        author = request.user
+        post = Post(title=title, content=content, author=author)
+        post.save()
+        return redirect('all_blog_posts')
+    return render(request, 'add_post.html')
+
+def edit_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        author = request.user
+
+        post.title = title
+        post.content = content
+        post.author = author
+
+        post.save()
+        return redirect('all_blog_posts')
+    return render(request, 'edit_post.html', {'post':post})

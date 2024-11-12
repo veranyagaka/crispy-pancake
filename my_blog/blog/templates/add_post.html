@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Post</title>
+</head>
+<body>
+    <h1>Create a new post</h1>
+    <form action="{% url 'add_post' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter the title of your post" name='title'required autofocus>
+        <textarea name="content" id="content" placeholder="What do you want to say" required ></textarea>
+        <input type="text" placeholder="Enter the your name" name="name" required>
+        <input type="submit" name="submit" id="submit" value="submit">
+    </form>
+    
+</body>
+</html>

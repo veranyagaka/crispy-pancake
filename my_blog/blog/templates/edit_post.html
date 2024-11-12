@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post: {{ post.pk}}</title>
+</head>
+<body>
+    <h1>Editing blog post {{post.title}}</h1>
+    <form action="{% url 'edit_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter the title of your post" name="title" value="{{ post.title }}" required autofocus>
+        <textarea name="content" placeholder="What do you want to say" required>{{ post.content }}</textarea>
+        <input type="text" placeholder="Enter your name" name="author_name" value="{{ post.author.username }}" required>
+        <input type="submit" value="Save changes">
+    </form>
+</body>
+</html>

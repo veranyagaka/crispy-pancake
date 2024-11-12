@@ -7,10 +7,13 @@
 </head>
 <body>
     <h1>All blog posts</h1>
+    <a href="{% url 'add_post' %}">Add New Post</a>
+
     <ul>
         {% for post in posts %}
         <li>
-            <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2>
+            <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2><a href="{% url 'edit_post' post.pk %}">Edit</a>
+
             <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
             <p>{{post.content}}</p>
         </li>
