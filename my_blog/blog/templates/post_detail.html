@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All blog posts</title>
+    <title>Blog post: {{ post.pk }}</title>
 </head>
 <body>
-    <h1>All blog posts</h1>
+    <h1>{{ post.title }}</h1>
     <ul>
-        {% for post in posts %}
         <li>
-            <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2>
+            <h2>{{post.title}}</h2>
             <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
             <p>{{post.content}}</p>
         </li>
-        {% endfor %}
     </ul>
 </body>
 </html>
