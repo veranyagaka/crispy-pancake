@@ -13,7 +13,8 @@
         {% for post in posts %}
         <li>
             <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2><a href="{% url 'edit_post' post.pk %}">Edit</a>
-
+        <br>
+        <a href="{% url 'delete_post' post.pk %}">Delete</a>
             <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
             <p>{{post.content}}</p>
         </li>

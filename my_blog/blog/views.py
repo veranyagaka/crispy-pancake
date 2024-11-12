@@ -33,3 +33,8 @@ def edit_post(request, pk):
         post.save()
         return redirect('all_blog_posts')
     return render(request, 'edit_post.html', {'post':post})
+
+def delete_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('all_blog_posts')
