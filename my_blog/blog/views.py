@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
+from .forms import CommentForm
 # Create your views here.
 def all_blog_posts(request):
     posts = Post.objects.all()
@@ -9,7 +10,22 @@ def all_blog_posts(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    return render(request, 'post_detail.html', {'post': post})
+    comments = post.comments.all()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    context = {
+        'post': post,
+        'comments': comments,
+        'form': form
+    }
+    return render(request, 'post_detail.html', context)
 
 @login_required
 def add_post(request):

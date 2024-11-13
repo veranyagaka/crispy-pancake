@@ -24,6 +24,7 @@
         <a href="{% url 'delete_post' post.pk %}">Delete</a>
             <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
             <p>{{post.content}}</p>
+            <p><strong>Comments:</strong> {{ post.comments.count }} </p>
         </li>
         {% endfor %}
     </ul>

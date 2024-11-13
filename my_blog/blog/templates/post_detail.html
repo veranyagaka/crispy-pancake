@@ -13,6 +13,22 @@
             <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
             <p>{{post.content}}</p>
         </li>
+        <h2>Comments</h2>
+        {% for comment in comments %}
+            <div>
+                <p><strong>{{ comment.author }}</strong> on {{ comment.date_posted }}:</p>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+
+    <h2>Leave a Comment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
     </ul>
 </body>
 </html>
