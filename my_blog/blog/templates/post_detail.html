@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog post: {{ post.pk }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
-    <ul>
-        <li>
-            <h2>{{post.title}}</h2>
-            <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
-            <p>{{post.content}}</p>
-        </li>
-        <h2>Comments</h2>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h1 class="alert alert-info text-center">{{ post.title }}</h1>
+
+            <div class="post-details">
+                <p class="text-muted">By: {{ post.author }} | At: {{ post.created_at }}</p>
+                <p>{{ post.content }}</p>
+            </div>
+
+         <h2 class="mt-5">Comments</h2>
         {% for comment in comments %}
-            <div>
+            <div class="comment mb-3 p-3 border rounded">
                 <p><strong>{{ comment.author }}</strong> on {{ comment.date_posted }}:</p>
                 <p>{{ comment.content }}</p>
             </div>
@@ -23,12 +27,17 @@
             <p>No comments yet. Be the first to comment!</p>
         {% endfor %}
 
-    <h2>Leave a Comment</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Post Comment</button>
-    </form>
-    </ul>
+        <h2 class="mt-5" >Leave a Comment</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+            {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -4,29 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All blog posts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
-<body>
-    <h1>All blog posts</h1>
-    {% if user.is_authenticated %}
-    <p>Welcome, {{user.username}}! <a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
-    {% endif %}
-    <br>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">All Blog Posts</h1>
+            {% if user.is_authenticated %}
+        <div class="alert alert-info text-center">
+            <p>Welcome, {{user.username}}! <a href="{% url 'logout' %}">Logout</a></p>
+        </div>
+            {% else %}
+        <div class="text-center">
+            <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+            {% endif %}
+            <br>
+        <div class="text-right my-3">
+            <a href="{% url 'add_post' %}">Add New Post</a>
+        </div>
+        <ul class="list-group">
+            {% for post in posts %}
+            <li class="list-group-item mb-3">
+                <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2><a href="{% url 'edit_post' post.pk %}">Edit</a>
+            <br>
+            <a href="{% url 'delete_post' post.pk %}">Delete</a>
+                <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
+                <p>{{post.content}}</p>
+                <p><strong>Comments:</strong> {{ post.comments.count }} </p>
+                <a href="{% url 'post_detail' post.pk %}">Comment Here</a>
 
-    <a href="{% url 'add_post' %}">Add New Post</a>
-
-    <ul>
-        {% for post in posts %}
-        <li>
-            <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2><a href="{% url 'edit_post' post.pk %}">Edit</a>
-        <br>
-        <a href="{% url 'delete_post' post.pk %}">Delete</a>
-            <p>By: {{post.author}} <br> At: {{post.created_at}} </p>
-            <p>{{post.content}}</p>
-            <p><strong>Comments:</strong> {{ post.comments.count }} </p>
-        </li>
-        {% endfor %}
-    </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
